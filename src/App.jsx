@@ -56,6 +56,8 @@ function App() {
 
   const maxIndex = windowWidth <= 768 ? blogs.length - 1 : blogs.length - 4;
 
+  const [aboutFlipped, setAboutFlipped] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -193,8 +195,9 @@ function App() {
       <section id="about" className="about-section">
         <div className="about-content">
           <div className="education-card">
-            <div className="flip-card-inner">
+            <div className={`flip-card-inner${aboutFlipped ? ' flipped' : ''}`} onClick={() => setAboutFlipped(f => !f)} style={{cursor: 'pointer'}}>
               <div className="flip-card-front">
+                <span className="about-info-icon"><i className="fas fa-info-circle"></i></span>
                 <h3>About Me</h3>
                 <p>I'm a Computer Science graduate who’s passionate about using technology to solve real-world problems, not just for efficiency, but for people. I'm drawn to clean design, curious about AI, and excited to learn something that challenges how I think.
 I’m curious by nature, always learning something new, and driven by the idea that great tech should be accessible to everyone. When I'm not coding, you’ll find me exploring design, journaling random ideas, or figuring out how things work just for fun.</p>

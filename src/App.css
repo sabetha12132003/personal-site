@@ -479,8 +479,13 @@ html, body {
   height: 100%;
 }
 
-.hobby-card:hover .flip-card-inner,
+/* Remove hover-based flip for education-card */
 .education-card:hover .flip-card-inner {
+  /* Remove: transform: rotateY(180deg); */
+}
+
+/* Flip on .flipped class instead */
+.flip-card-inner.flipped {
   transform: rotateY(180deg);
 }
 
@@ -1591,4 +1596,43 @@ html, body {
     min-width: 0;
     margin: 0;
   }
+}
+
+.about-info-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #fff;
+  opacity: 0.5;
+  font-size: 1.3rem;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 2;
+}
+
+.flip-card-front:hover .about-info-icon,
+.education-card:hover .about-info-icon {
+  opacity: 0.85;
+  transform: translateY(-4px) scale(1.08);
+}
+
+/* Ensure flip-card-front is relative for absolute icon */
+.flip-card-front {
+  position: relative;
+  background: rgba(255, 255, 255, 0.25); /* base transparency */
+  transition: background 0.3s;
+}
+
+.education-card:hover .flip-card-front {
+  background: rgba(255, 255, 255, 0.33); /* slightly less transparent on hover */
+}
+
+.flip-card-front, .flip-card-back {
+  background: rgba(255, 255, 255, 0.25); /* base transparency */
+  transition: background 0.3s;
+}
+
+.education-card:hover .flip-card-front,
+.education-card:hover .flip-card-back {
+  background: rgba(255, 255, 255, 0.33); /* slightly less transparent on hover */
 }
