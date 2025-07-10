@@ -156,13 +156,12 @@ html, body {
 }
 
 /* Home Section and Blob Styles */
-.home-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  margin-top: -50px;
+.home-section,
+.about-section,
+.hobbies-section {
+  margin-top: 0; /* Remove negative margins */
+  padding-top: 3rem; /* Add space for visual separation */
+  scroll-margin-top: 80px; /* For anchor links below fixed navbar */
 }
 
 .home-content {

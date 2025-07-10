@@ -59,15 +59,15 @@ function App() {
   const [aboutFlipped, setAboutFlipped] = useState(false);
 
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      setIsScrolled(scrollTop > 10)
-    }
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollTop = window.scrollY
+  //     setIsScrolled(scrollTop > 10)
+  //   }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => window.removeEventListener('scroll', handleScroll)
+  // }, [])
 
   const handleLinkClick = (linkName) => {
     setActiveLink(linkName)
