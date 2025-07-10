@@ -1,3 +1,17 @@
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Only apply width: 100% to these sections, not navbar */
+.footer-section,
+.blogs-section,
+.projects-hero {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -881,20 +895,45 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* --- Arrow Button Animation and Layout Fix --- */
 .arrow-btn {
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.6);
-  transition: all 0.2s ease;
+  transition: color 0.2s, background 0.2s, transform 0.2s;
+  outline: none;
+}
+
+.arrow-btn:hover,
+.arrow-btn:active {
+  background: transparent !important;
+}
+
+.arrow-icon {
+  font-size: 1.5rem;
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1), font-size 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+.arrow-btn:hover .arrow-icon,
+.arrow-btn:active .arrow-icon {
+  transform: scale(1.4);
+}
+
+.arrow-btn:focus,
+.arrow-btn:focus-visible,
+.arrow-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .arrow-btn:hover {
@@ -1181,6 +1220,7 @@
   transition: all 0.2s ease;
   z-index: 10;
   flex-shrink: 0;
+  outline: none;
 }
 
 .cards-wrapper .left-arrow {
@@ -1279,6 +1319,22 @@
   }
   
   .blog-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 0;
+  }
+  .card-grid-space {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  
+  .blog-cards-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     padding: 0;
@@ -1305,6 +1361,18 @@
   
   .card p {
     font-size: 0.85em;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-cards-container {
+    align-items: flex-start;
+    padding-left: 1rem;
+  }
+  .card {
+    max-width: 340px;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -1393,4 +1461,134 @@
   font-size: 1rem;
   margin: 0.3rem 0;
   opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  /* Home section fixes */
+  .name {
+    font-size: 2.1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.1;
+  }
+  .title {
+    font-size: 1.1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    padding: 0 0.5rem;
+  }
+  .home-content {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+  }
+  .title-section {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+  }
+  /* About section fixes */
+  .about-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+  }
+  .education-card, .skills-section {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 0;
+  }
+  .education-card {
+    margin-bottom: 1.5rem;
+    height: auto;
+    min-height: 320px;
+  }
+  .education-card .flip-card-inner {
+    min-height: 320px;
+  }
+  .flip-card-front, .flip-card-back {
+    padding: 1rem 0.5rem 2rem 0.5rem;
+  }
+  .tmu-logo {
+    width: 120px;
+    height: 120px;
+  }
+  /* Prevent text overlap with portrait */
+  .blob-container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .blob-svg {
+    width: 90vw;
+    height: auto;
+    max-width: 320px;
+    max-height: 320px;
+  }
+  /* About text spacing */
+  .flip-card-front h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.7rem;
+  }
+  .flip-card-front p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  @media (max-width: 768px) {
+    .education-card {
+      min-height: 420px;   /* or higher if you want more space */
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    .education-card .flip-card-inner {
+      min-height: 420px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-section,
+  .footer-container,
+  .contact-grid,
+  .contact-section {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact-grid {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-blog-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100vw;
+    margin-left: calc(-1 * (100vw - 100%) / 2);
+    padding-left: 0;
+    gap: 0.5rem;
+  }
+  .mobile-blog-row .arrow-btn {
+    position: static;
+    margin: 0;
+    z-index: 1;
+  }
+  .blog-cards-container {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .card {
+    max-width: 250px;
+    min-width: 0;
+    margin: 0;
+  }
 }

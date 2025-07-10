@@ -20,6 +20,13 @@ function App() {
   const retailImages = ["/retail-1.png", "/retail-2.png"];
 
   const [blogIndex, setBlogIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const blogs = [
     {
       num: "01",
@@ -47,6 +54,7 @@ function App() {
     }
   ];
 
+  const maxIndex = windowWidth <= 768 ? blogs.length - 1 : blogs.length - 4;
 
 
   useEffect(() => {
@@ -256,7 +264,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
               <div className="project-title">OpenAI-Powered Book Explorer</div>
               <p>A full-stack web app powered by OpenAI, offering personalized book recommendations through a conversational chatbot. Like “Netflix for books,” it lets users explore and discover titles based on their preferences, mood, or favorite genres.</p>
               <div className="slideshow-container">
-                <button className="arrow-btn left-arrow" onClick={() => setBookImageIndex(bookImageIndex === 0 ? 1 : 0)}>‹</button>
+                <button className="arrow-btn left-arrow" onClick={() => setBookImageIndex(bookImageIndex === 0 ? 1 : 0)}><span className="arrow-icon">‹</span></button>
                 <img
                   src={bookImages[bookImageIndex]}
                   alt="Book Explorer Screenshot"
@@ -264,7 +272,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
                   style={{ objectFit: "cover", cursor: "pointer" }}
                   onClick={() => setIsBookModalOpen(true)}
                 />
-                <button className="arrow-btn right-arrow" onClick={() => setBookImageIndex(bookImageIndex === 1 ? 0 : 1)}>›</button>
+                <button className="arrow-btn right-arrow" onClick={() => setBookImageIndex(bookImageIndex === 1 ? 0 : 1)}><span className="arrow-icon">›</span></button>
               </div>
               <div className="project-links">
                 <a href="https://github.com/sabetha12132003/book-recs" className="project-link-btn github-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -282,7 +290,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
               <div className="project-title">FDA Medication Lookup Tracker</div>
               <p>A web application that lets logged-in users search medications in real-time using FDA data and save them to a personal collection. Users can view detailed info including dosage, side effects, and more for medication tracking and awareness.</p>
               <div className="slideshow-container">
-                <button className="arrow-btn left-arrow" onClick={() => setMedImageIndex(medImageIndex === 0 ? 1 : 0)}>‹</button>
+                <button className="arrow-btn left-arrow" onClick={() => setMedImageIndex(medImageIndex === 0 ? 1 : 0)}><span className="arrow-icon">‹</span></button>
                 <img
                   src={medImages[medImageIndex]}
                   alt="Medication Tracker Screenshot"
@@ -290,7 +298,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
                   style={{ objectFit: "cover", cursor: "pointer" }}
                   onClick={() => setIsMedModalOpen(true)}
                 />
-                <button className="arrow-btn right-arrow" onClick={() => setMedImageIndex(medImageIndex === 1 ? 0 : 1)}>›</button>
+                <button className="arrow-btn right-arrow" onClick={() => setMedImageIndex(medImageIndex === 1 ? 0 : 1)}><span className="arrow-icon">›</span></button>
               </div>
               <div className="project-links">
                 <a href="https://github.com/sabetha12132003/med-lookup" className="project-link-btn github-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -306,7 +314,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
               <div className="project-title">Store Management GUI</div>
               <p>A Java web-based GUI for managing a Clothing Retail Store using an SQL database. Users can efficiently handle customers, orders, products, and suppliers. The system supports inventory tracking, order processing, and sales reporting.</p>
               <div className="slideshow-container">
-                <button className="arrow-btn left-arrow" onClick={() => setRetailImageIndex(retailImageIndex === 0 ? 1 : 0)}>‹</button>
+                <button className="arrow-btn left-arrow" onClick={() => setRetailImageIndex(retailImageIndex === 0 ? 1 : 0)}><span className="arrow-icon">‹</span></button>
                 <img
                   src={retailImages[retailImageIndex]}
                   alt="Retail Manager Screenshot"
@@ -314,7 +322,7 @@ I’m curious by nature, always learning something new, and driven by the idea t
                   style={{ objectFit: "cover", cursor: "pointer" }}
                   onClick={() => setIsRetailModalOpen(true)}
                 />
-                <button className="arrow-btn right-arrow" onClick={() => setRetailImageIndex(retailImageIndex === 1 ? 0 : 1)}>›</button>
+                <button className="arrow-btn right-arrow" onClick={() => setRetailImageIndex(retailImageIndex === 1 ? 0 : 1)}><span className="arrow-icon">›</span></button>
               </div>
               <div className="project-links">
                 <a href="https://github.com/sabetha12132003/oracle-java-project" className="project-link-btn github-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -365,32 +373,63 @@ I’m curious by nature, always learning something new, and driven by the idea t
             <p>Blog posts are on the way! Soon I'll be writing about what I'm learning, building, and navigating in tech, with some personal stories in between.</p>
           </div>
         </div>
-        
-        <div className="cards-wrapper">
-          <button className="arrow-btn left-arrow" onClick={() => setBlogIndex(Math.max(0, blogIndex - 1))}>‹</button>
-          
-          <div className="blog-cards-container">
-            {blogs.slice(blogIndex, blogIndex + 4).map((blog, index) => (
-              <div key={blog.num} className="card-grid-space">
-                <div className="num">{blog.num}</div>
-                <a className="card" href="#" style={{"--bg-img": `url('${blog.bgImg}')`}}>
-                  <div>
-                    <h1>{blog.title}</h1>
-                    <p>{blog.description}</p>
-                    <div className="date">{blog.date}</div>
-                    <div className="tags">
-                      {blog.tags.map((tag, tagIndex) => (
-                        <div key={tagIndex} className="tag">{tag}</div>
-                      ))}
+        {windowWidth <= 768 ? (
+          <div className="cards-wrapper mobile-blog-row">
+            <button
+              className="arrow-btn left-arrow"
+              onClick={() => setBlogIndex(Math.max(0, blogIndex - 1))}
+              disabled={blogIndex === 0}
+            ><span className="arrow-icon">‹</span></button>
+            <div className="blog-cards-container">
+              {blogs.slice(blogIndex, blogIndex + 1).map((blog, index) => (
+                <div key={blog.num} className="card-grid-space">
+                  <div className="num">{blog.num}</div>
+                  <a className="card" href="#" style={{ "--bg-img": `url('${blog.bgImg}')` }}>
+                    <div>
+                      <h1>{blog.title}</h1>
+                      <p>{blog.description}</p>
+                      <div className="date">{blog.date}</div>
+                      <div className="tags">
+                        {blog.tags.map((tag, tagIndex) => (
+                          <div key={tagIndex} className="tag">{tag}</div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </div>
-            ))}
+                  </a>
+                </div>
+              ))}
+            </div>
+            <button
+              className="arrow-btn right-arrow"
+              onClick={() => setBlogIndex(Math.min(maxIndex, blogIndex + 1))}
+              disabled={blogIndex === maxIndex}
+            ><span className="arrow-icon">›</span></button>
           </div>
-
-          <button className="arrow-btn right-arrow" onClick={() => setBlogIndex(Math.min(blogs.length - 4, blogIndex + 1))}>›</button>
-        </div>
+        ) : (
+          <div className="cards-wrapper">
+            <button className="arrow-btn left-arrow" onClick={() => setBlogIndex(Math.max(0, blogIndex - 1))}>‹</button>
+            <div className="blog-cards-container">
+              {blogs.slice(blogIndex, blogIndex + 4).map((blog, index) => (
+                <div key={blog.num} className="card-grid-space">
+                  <div className="num">{blog.num}</div>
+                  <a className="card" href="#" style={{ "--bg-img": `url('${blog.bgImg}')` }}>
+                    <div>
+                      <h1>{blog.title}</h1>
+                      <p>{blog.description}</p>
+                      <div className="date">{blog.date}</div>
+                      <div className="tags">
+                        {blog.tags.map((tag, tagIndex) => (
+                          <div key={tagIndex} className="tag">{tag}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+            <button className="arrow-btn right-arrow" onClick={() => setBlogIndex(Math.min(maxIndex, blogIndex + 1))}>›</button>
+          </div>
+        )}
       </section>
 
       <section className="footer-section" id="contact">
