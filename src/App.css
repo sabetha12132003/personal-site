@@ -1,7 +1,9 @@
+/*
 html, body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+*/
 
 /* Only apply width: 100% to these sections, not navbar */
 .footer-section,
@@ -156,12 +158,13 @@ html, body {
 }
 
 /* Home Section and Blob Styles */
-.home-section,
-.about-section,
-.hobbies-section {
-  margin-top: 0; /* Remove negative margins */
-  padding-top: 3rem; /* Add space for visual separation */
-  scroll-margin-top: 80px; /* For anchor links below fixed navbar */
+.home-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: -50px;
 }
 
 .home-content {
@@ -768,9 +771,9 @@ html, body {
   color: #232323;
 
   /* force full width, no overflow */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 
   /* set height */
   min-height: 500px; /* or whatever height you want */
@@ -1020,7 +1023,7 @@ html, body {
 }
 
 .modal-image {
-  max-width: 60vw;
+  max-width: 60%;
   max-height: 50vh;
   border-radius: 12px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
@@ -1040,9 +1043,9 @@ html, body {
   color: #232323;
 
   /* force full width, no overflow */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 
   /* set height */
   min-height: 700px; /* reduced height */
@@ -1383,9 +1386,9 @@ html, body {
 .footer-section {
   background: transparent;
   color: #232323;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   padding: 3rem 1rem 4rem 1rem;
   text-align: center;
 }
@@ -1487,7 +1490,7 @@ html, body {
     gap: 1.2rem;
     align-items: center;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
   .title-section {
     width: 100%;
@@ -1500,11 +1503,11 @@ html, body {
     gap: 1.5rem;
     align-items: center;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
   .education-card, .skills-section {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     min-width: 0;
   }
   .education-card {
@@ -1576,8 +1579,7 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    width: 100vw;
-    margin-left: calc(-1 * (100vw - 100%) / 2);
+    width: 100%; /* was 100vw */
     padding-left: 0;
     gap: 0.5rem;
   }
@@ -1634,4 +1636,26 @@ html, body {
 .education-card:hover .flip-card-front,
 .education-card:hover .flip-card-back {
   background: rgba(255, 255, 255, 0.33); /* slightly less transparent on hover */
+}
+
+.projects-hero,
+.blogs-section {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  max-width: 100vw;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 768px) {
+  .projects-hero,
+  .blogs-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
